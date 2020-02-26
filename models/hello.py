@@ -15,7 +15,7 @@ class Course(models.Model):
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
     parent_id = fields.Many2one('openacademy.course', required=False, ondelete='cascade')
-    name_tree = fields.Char(compute='compute_name_tree', store=True, default='/')
+    name_tree = fields.Char(compute='_compute_name_tree', store=True, default='/')
 
     parent_ids = fields.Many2many(
         comodel_name  = 'openacademy.course',
@@ -23,11 +23,23 @@ class Course(models.Model):
         column1 = 'parent_ids',
         column2 = 'child_ids')
 
+    def change_parents(self):
+        a = self
+        self.parent_ids = False
+        while a.parent_id:
+            self.parent_ids += a.parent_id
+            a = a.parent_id
 
-    # def write(self, value):
-    #     super().write(value)
-    #     for record in self:
-    #         record.compute_name_tree()
+
+    def write(self, vals):
+        res = super().write(vals)
+        if 'parent_id' in vals:
+            for record in self:
+                record.change_parents()
+        return res
+
+
+
     #serch function
     # def find_elem(self, operator, value):
     #     element = self.search([]).filtered(lambda x: value in x.name_tree)
@@ -35,7 +47,7 @@ class Course(models.Model):
     #         return [('id', 'in', element.ids)]
 
     @api.depends('parent_id', 'name_tree', 'name')
-    def compute_name_tree(self):
+    def _compute_name_tree(self):
         for record in self:
             if record.parent_id.name_tree:
                 record.name_tree = str(record.parent_id.name_tree) + '/' + record.name

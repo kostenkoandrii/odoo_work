@@ -7,15 +7,15 @@
             <field name="model">openacademy.course</field>
             <field name="arch" type="xml">
                 <form>
-                    <field name="name"/>
-                    <field name="description"/>
-                    <header>
-                      <field name="status_selection" widget='statusbar'/>
-                    </header>
+                  <header>
+                    <field name="status_selection" widget='statusbar'/>
                     <button type="object" name="back_element_action" class='btn-primary'>Back</button>
                     <button type="object" name="next_element_action" class='btn-primary'>Next</button>
+                  </header>
+                    <field name="name"/>
+                    <field name="description"/>
                     <field name="parent_id"/>
-                    <field name="parent_ids"/>
+                    <field name="parent_ids" widget='many2many_tags'/>
                 </form>
             </field>
         </record>
@@ -29,6 +29,7 @@
                     <field name="status_selection"/>
                     <field name="parent_id"/>
                     <field name="name_tree"/>
+                    <button type="object" name="change_parents" class='btn-primary' string='Change_parent'/>
                 </tree>
             </field>
         </record>
@@ -38,7 +39,7 @@
             <field name="model">openacademy.course</field>
             <field name="arch" type="xml">
                 <search>
-                  <field name="name_tree"/>
+                  <field name="parent_ids"/>
                 </search>
             </field>
         </record>
