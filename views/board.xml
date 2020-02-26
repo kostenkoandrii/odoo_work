@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--My Dashboard-->
+        <record model="ir.ui.view" id="open_board_my_dash_action">
+            <field name="name">My Dashboard</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <header>
+                      <field name="status_selection" widget='statusbar'/>
+                    </header>
+                    <button type="object" name="back_element_action" class='btn-primary'>Back</button>
+                    <button type="object" name="next_element_action" class='btn-primary'>Next</button>
+                    <field name="parent_id"/>
+                    <field name="parent_ids"/>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="open_board_my_dash_action3">
+            <field name="name">My Dashboard</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="status_selection"/>
+                    <field name="parent_id"/>
+                    <field name="name_tree"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="open_board_my_dash_action8">
+            <field name="name">My Dashboard</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <search>
+                  <field name="name_tree"/>
+                </search>
+            </field>
+        </record>
+
+
+
+
+        <!--My Dashboard Action-->
+        <record model="ir.actions.act_window" id="open_board_my_dash_action">
+            <field name="name">My Dashboard 2</field>
+            <field name="res_model">openacademy.course</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+        <!--My Dashboard Menu-->
+        <menuitem
+            id="menu_board_my_dash"
+            action="open_board_my_dash_action"
+            sequence="5"/>
+    </data>
+</odoo>
