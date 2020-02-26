@@ -34,8 +34,17 @@ class Course(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if 'parent_id' in vals:
-            for record in self:
+            for record in self.search([('id', 'child_of', self.ids)]):
                 record.change_parents()
+        return res
+
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if 'parent_id' in vals:
+            for record in self.search([('id', 'child_of', res.ids)]):
+                record.change_parents()
+                _logger.info(f'___2______{record.change_parents()}_______2_____')
         return res
 
 
@@ -46,7 +55,7 @@ class Course(models.Model):
     #     if element:
     #         return [('id', 'in', element.ids)]
 
-    @api.depends('parent_id', 'name_tree', 'name')
+    @api.depends('parent_ids', 'parent_ids.name', 'name')
     def _compute_name_tree(self):
         for record in self:
             if record.parent_id.name_tree:

@@ -9,13 +9,20 @@
                 <form>
                   <header>
                     <field name="status_selection" widget='statusbar'/>
-                    <button type="object" name="back_element_action" class='btn-primary'>Back</button>
-                    <button type="object" name="next_element_action" class='btn-primary'>Next</button>
+                    <button type="object" name="back_element_action" class='btn-primary' string='Back'/>
+                    <button type="object" name="next_element_action" class='btn-primary' string='Next'/>
                   </header>
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="parent_id"/>
-                    <field name="parent_ids" widget='many2many_tags'/>
+
+                  <group>
+                    <group>
+                      <field name="name" string='Name of Category' />
+                      <field name="description" string='Description of Category' />
+                    </group>
+                    <group>
+                      <field name="parent_id" string='Parent Name of Category' />
+                      <field name="parent_ids" widget='many2many_tags' string='Category Tree'/>
+                    </group>
+                  </group>
                 </form>
             </field>
         </record>
