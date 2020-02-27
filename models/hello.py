@@ -44,10 +44,9 @@ class Course(models.Model):
         if 'parent_id' in vals:
             for record in self.search([('id', 'child_of', res.ids)]):
                 record.change_parents()
-                _logger.info(f'___2______{record.change_parents()}_______2_____')
         return res
 
-
+# _logger.info(f'___2______{record.change_parents()}_______2_____')
 
     #serch function
     # def find_elem(self, operator, value):

@@ -36,7 +36,6 @@
                     <field name="status_selection"/>
                     <field name="parent_id"/>
                     <field name="name_tree"/>
-                    <button type="object" name="change_parents" class='btn-primary' string='Change_parent'/>
                 </tree>
             </field>
         </record>
@@ -51,14 +50,32 @@
             </field>
         </record>
 
-
-
+        <record model="ir.ui.view" id="kanban_items">
+            <field name="name">My Dashboard</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <kanban class="modul_kanban">
+                  <field name="name"/>
+                  <field name="name_tree"/>
+                  <templates>
+                    <t t-name='kanban-box'>
+                        <div t-attf-class="oe_kanban_global_click">
+                            <img src="https://image.flaticon.com/icons/svg/148/148711.svg" alt="Our Kanban" />
+                            <field name="name"/>
+                            <p>Was Created:</p>
+                            <field name="description"/>
+                        </div>
+                    </t>
+                  </templates>
+                </kanban>
+            </field>
+        </record>
 
         <!--My Dashboard Action-->
         <record model="ir.actions.act_window" id="open_board_my_dash_action">
-            <field name="name">My Dashboard 2</field>
+            <field name="name">My Dashboard</field>
             <field name="res_model">openacademy.course</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" eval="False"/>
         </record>
 
